@@ -1,30 +1,30 @@
 .NavbarItems{
-    background-color: #3ee577;
-    background-image: linear-gradient(315deg, #3ee577 0%, #42fcdb 74%);
-    height:10%;
+    /*background-color: #3ee577;*/
+    /*background-image: linear-gradient(315deg, #3ee577 0%, #42fcdb 74%);*/
+    background: linear-gradient(to right,white,black);
     display: flex;
+    flex: 33.33%;
     align-items: center;
     font-size: 1.2rem;
-    flex-wrap: wrap;
 }
 
 .navbar-logo{
-    color: #fff;
-    margin-right: 50%;
-    display: flex;
+    margin-left: 2%;
+    align-items: center;
 }
 .head{
-    color:#0066ff;
-    margin-left: 20%;
+    color:#191970;/*#000080#40E0D0#191970*/
     width: fit-content;
+    align-items: center;
+    margin-left: auto;
+    font-size: xx-large;
 }
 
 .nav-menu{
     display: flex;
     grid-gap: 10px;
     list-style: none;
-    position: absolute;
-    right: 1%;
+    margin-left: auto;
 }
 
 .help{
@@ -40,13 +40,13 @@
 }
 
 .help:hover{
-    background-color: #7fff00;
+    background-color: gray;
     border-radius: 20px;
     transition: all 0.2s ease-out;
 }
 
 .contact:hover{
-    background-color: #7fff00;
+    background-color: gray;
     border-radius: 20px;
     transition: all 0.2s ease-out;
 }

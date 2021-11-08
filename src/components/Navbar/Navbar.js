@@ -7,8 +7,9 @@ class Navbar extends Component{
     render(){
         return(
             <nav className="NavbarItems">
-                <div className="navbar-logo"><img src={logo} width="100" height="50" />  <h1 className="head">Soil Salinity and Leach Management</h1></div>
-                <ul className="nav-menu">
+                <div className="navbar-logo"><img src={logo} width="100" height="50" />  </div>
+                <div className="head">Irrigation Water Optimizer</div>
+                <div className="nav-menu">
                     {MenuItems.map((item, index) => {
                         return(
                             <li key={index}>
@@ -18,7 +19,8 @@ class Navbar extends Component{
                             </li>
                         )
                     })}
-                </ul>
+                </div>
+                
             </nav>
         )
     }
