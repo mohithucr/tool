@@ -4,17 +4,16 @@ import "./home.css";
 
 import crop from './crop.png'
 import drop from './drop.png'
-import { placeholder } from '@babel/types';
+import dollar from './dollar_sign.png'
 import { useState } from 'react';
 
 import soil from './soil.png';
 import irrigation from './irrigation.png'
-import ProgressBar from 'react-bootstrap/ProgressBar'
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import { CenterFocusStrong } from '@material-ui/icons';
+import { CenterFocusStrong, SettingsSystemDaydream } from '@material-ui/icons';
 const itype = [
   { label: "Flood  ", value:  1},
   { label: "Basin  ", value: 2 },
@@ -63,10 +62,14 @@ const crops =[
 
 function Home() {
        const [pa, setPa] = useState(0);
+       let [lr, setlr] = useState(0);
        let [pr ,setPr] = useState(0);
        const [a,seta]    = useState('');
        const [b,setb] = useState('');
+       const [c,setc] = useState('');
+       const [d,setd] = useState('');
        const [Eta,seteta] = useState(0);
+       const [ie, setie] = useState(0);
        function cpot(){
            //console.log(pa)
            let Ym =0;
@@ -192,20 +195,99 @@ function Home() {
            pr=100*(ky*(1-(Eta/Etm)))
            setb(pr)
        }
-    function LinearProgressWithLabel(props) {
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ width: '70%', mr: 1 }}>
-              <LinearProgress variant="determinate" {...props} />
+       function clr(){
+        let eci =0;
+        let ecw =0;
+        let ETm =0;
+        let iw =0;
+        if (pa == 1){
+            eci = 2;
+            ecw = 1.3;
+            ETm=1500;
+           }
+        else if ( pa == 2){
+           eci=7;
+           ecw=4.7;
+           ETm=1050;
+        }
+        else if (pa == 3){
+           eci=6;
+           ecw=4;
+           ETm=620;
+        }
+        else if (pa == 4){
+           eci=6.9;
+           ecw=4.6;
+           ETm=1200;
+        }
+        else if (pa ==5 ){
+           eci=4;
+           ecw=2.7;
+           ETm=1250;
+        }
+        else if (pa == 6){
+           eci=2.8;
+           ecw=1.9;
+           ETm=800;
+        }
+        else if (pa ==7 ){
+            eci=1.3;
+            ecw=1;
+            ETm=320;
+        }
+        else if (pa == 8){
+          eci=1;
+          ecw=0.8;
+          ETm=600;
+        }
+        else if (pa == 9){
+           eci=2.8;
+           ecw=1.9;
+           ETm=350;
+        }
+        else if (pa == 10){
+          eci=1.2;
+          ecw=0.9;
+          ETm=800;
+        }
+        else if (pa ==11 ){
+           eci=2;
+           ecw=1.3;
+           ETm=200;
+        }
+        else if (pa ==12 ){
+          eci=1.7;
+          ecw=1.1;
+          ETm=600;
+        }
+        lr = eci/((5*ecw) - eci)
+        iw= ETm/(ie)*(1-lr)
+        setc(lr)
+        setd(iw)
+       }
+       function LinearProgressWithLabel(props) {
+            return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: '70%', mr: 1 }}>
+                <LinearProgress variant="determinate" {...props} />
+                </Box>
+                <Box sx={{ minWidth: 35 }}>
+                <Typography variant="body2" color="text.secondary">{`${Math.round(
+                    props.value,
+                )}%`}</Typography>
+                </Box>
             </Box>
-            <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2" color="text.secondary">{`${Math.round(
-                props.value,
-              )}%`}</Typography>
-            </Box>
-          </Box>
-        );
-      }
+            );
+        }
+      const ColoredLine = ({ color }) => (
+        <hr
+            style={{
+                color: color,
+                backgroundColor: color,
+                height: 2
+            }}
+        />
+    );
       
    
     return (
@@ -232,7 +314,7 @@ function Home() {
                             </p> 
                             <p><form>
                             <label>Cumulative ET:{}{' '}
-                                <input type="number" placeholder = "mm" onChange = {e => seteta(e.target.value)}/>
+                            <div className='bar'> <input type="number" placeholder = "mm" style={{width: "50px"}} onChange = {e => seteta(e.target.value)}/></div>
                             </label>
                             </form></p>
                             </div>
@@ -250,7 +332,7 @@ function Home() {
                         </p> 
                         <p><form>
                         <label>Water EC (dS/m):{' '}
-                        <input type="number" placeholder = "(dS/m)"/>
+                        <input type="number" placeholder = "(dS/m)" style={{width: "50px"}}/>
                         </label>
                     </form></p>
                     </div>
@@ -286,31 +368,66 @@ function Home() {
                     </p> 
                     <p className="if"><form>
                     <label>Irrigation Efficiency(%):{' '}
-                    <input type="number" placeholder = "%"/>
+                    <input type="number" placeholder = "%" style={{width: "50px"}} onChange = {e => setie(e.target.value)}/>
                     </label>
                     </form>
                     
                     </p>
                     </div>
                     
+                    
                         </div>
+                        <div className='card'>
+                        <div className='drop-image'>
+                            <img src={dollar} />   
+                            <p> Cost</p>
+                        </div>
+                        <div className = "crop_details ">
+                            <p className = "input">
+                        
+                            </p> 
+                            <p><form>
+                            <label>Dollars:{' '}
+                            <input type="number" placeholder = "$"/>
+                            </label>
+                        </form></p>
+                        </div>
+                        
+                            </div>
                     </div>
-            
+
+                    <div className="sep">
+                    <ColoredLine color="black" />
+                    </div>
+
                     <div className="r2">
                         <div className = "card">
                             <h1> Potential Yield </h1>
+                            <h6>For accurate results, Enter crop type and Cumulative ET</h6>
                             {pa .myPaVal}
                             <button className="gooey-button" onClick = {cpot}>Calculate</button>
                             <h4>{a}</h4>
                         </div>
                         <div className="card">
                                 <h1>Relative Yield</h1>
+                                <h6>For accurate results, Enter crop type and Cumulative ET</h6>
                                 <button className="gooey-button" onClick = {rpot}>Calculate</button>
                                 <Box sx={{ width: '100%' }}>
                                 <LinearProgressWithLabel className="pb" value={b} />
                                 </Box>
                         </div>
-                    </div>   
+                    </div>  
+                    
+                    <div className="r3">
+                        <div className = "card">
+                            <h1> Leaching Requirements and Irrigation Water Depth </h1>
+                            <h6>For accurate results, Enter crop type, Cumulative ET and Irrigation Efficiency</h6>
+                            {pa.myPaVal}
+                            <button className="gooey-button" onClick = {clr}>Calculate</button>
+                            <h4>Leaching Requirement: {c}</h4>
+                            <h4>Irrigation Water depth: {d}</h4>
+                        </div>
+                    </div> 
                 </div>     
         </div>    
     )
